@@ -51,6 +51,7 @@ async function fetchReleases() {
     }
 
     div.appendChild(title);
+    div.appendChild(document.createElement("br"))
     div.appendChild(assetsDiv);
 
     if (release.reactions && release.reactions.total_count > 0) {
