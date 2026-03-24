@@ -381,6 +381,7 @@ a.nav-brand {
     border-radius: 50vw;
     border: 2px solid #f59e0b;
     color: #a56f0a;
+    cursor: default;
 }
 
 .assets a {
@@ -396,6 +397,23 @@ a.nav-brand {
 
 .assets a:hover {
     background: var(--primary-hover);
+}
+
+.reactions {
+    position: fixed;
+    right: 10px;
+    bottom: 8px;
+}
+
+.reactions span {
+    display: inline-block;
+    transition: 0.3s;
+    cursor: default;
+}
+
+.reactions span:hover {
+    scale: 110%;
+    translate: 0 -8px;
 }
 
 @media (max-width: 768px) {
