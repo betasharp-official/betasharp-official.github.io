@@ -285,6 +285,9 @@ a.nav-brand {
 }
 
 .release {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: saturate(180%) blur(40px);
     -webkit-backdrop-filter: saturate(180%) blur(40px);
@@ -305,6 +308,11 @@ a.nav-brand {
 #releases {
     max-width: 800px;
     width: 100%;
+}
+
+.release h3 {
+    cursor: pointer;
+    display: inline-block;
 }
 
 .feature-icon {
@@ -381,6 +389,11 @@ a.nav-brand {
     border-radius: 50vw;
     border: 2px solid #f59e0b;
     color: #a56f0a;
+    cursor: pointer;
+}
+
+.assets {
+    display: inline-block;
 }
 
 .assets a {
@@ -396,6 +409,23 @@ a.nav-brand {
 
 .assets a:hover {
     background: var(--primary-hover);
+}
+
+.reactions {
+    position: fixed;
+    right: 10px;
+    bottom: 8px;
+}
+
+.reactions span {
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.reactions span:hover {
+    scale: 110%;
+    translate: 0 -8px;
 }
 
 @media (max-width: 768px) {
