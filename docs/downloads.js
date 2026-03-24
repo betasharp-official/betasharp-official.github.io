@@ -1,4 +1,4 @@
-const owner = "Fazin85";
+const owner = "betasharp-official";
 const repo = "betasharp";
 
 async function fetchReleases() {
