@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "betasharp-official-github-io",
+  "compatibility_date": "2025-09-27",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "docs"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
