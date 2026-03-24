@@ -285,6 +285,9 @@ a.nav-brand {
 }
 
 .release {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background: rgba(255, 255, 255, 0.65);
     backdrop-filter: saturate(180%) blur(40px);
     -webkit-backdrop-filter: saturate(180%) blur(40px);
@@ -305,6 +308,11 @@ a.nav-brand {
 #releases {
     max-width: 800px;
     width: 100%;
+}
+
+.release h3 {
+    cursor: pointer;
+    display: inline-block;
 }
 
 .feature-icon {
@@ -381,7 +389,11 @@ a.nav-brand {
     border-radius: 50vw;
     border: 2px solid #f59e0b;
     color: #a56f0a;
-    cursor: default;
+    cursor: pointer;
+}
+
+.assets {
+    display: inline-block;
 }
 
 .assets a {
@@ -407,8 +419,8 @@ a.nav-brand {
 
 .reactions span {
     display: inline-block;
+    cursor: pointer;
     transition: 0.3s;
-    cursor: default;
 }
 
 .reactions span:hover {
