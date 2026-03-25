@@ -18,7 +18,7 @@ async function fetchReleases() {
     const div = document.createElement("a");
     div.className = "release";
     div.onclick = function (event) {
-      if (event.target.nodeName !== "A") {
+      if (event.target.nodeName === "H3" || event.target.nodeName === "SPAN") {
         window.location = release.html_url;
       }
     };
@@ -42,11 +42,19 @@ async function fetchReleases() {
       assetsDiv.appendChild(noAssets);
     } else {
       release.assets.forEach((asset) => {
+        const assetWrapper = document.createElement("div");
+
         const link = document.createElement("a");
         link.href = asset.browser_download_url;
         link.textContent = asset.name;
         link.download = release.name + "-" + asset.name;
-        assetsDiv.appendChild(link);
+        assetWrapper.appendChild(link);
+
+        const downloadCount = document.createElement("p");
+        downloadCount.textContent = `${asset.download_count} downloads`;
+        assetWrapper.appendChild(downloadCount);
+
+        assetsDiv.appendChild(assetWrapper);
       });
     }
 
