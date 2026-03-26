@@ -51,7 +51,7 @@ async function fetchReleases() {
         assetWrapper.appendChild(link);
 
         const downloadCount = document.createElement("p");
-        downloadCount.textContent = `${asset.download_count} downloads`;
+        downloadCount.textContent = `${asset.download_count} ↓`;
         assetWrapper.appendChild(downloadCount);
 
         assetsDiv.appendChild(assetWrapper);
