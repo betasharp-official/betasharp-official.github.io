@@ -490,7 +490,7 @@ main {
     }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 650px) {
     .release {
         padding-bottom: 12px;
     }
