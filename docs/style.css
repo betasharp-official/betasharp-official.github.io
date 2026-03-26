@@ -489,3 +489,13 @@ main {
         font-size: 2.25rem;
     }
 }
+
+@media (max-width: 620px) {
+    .release {
+        padding-bottom: 12px;
+    }
+
+    .release:hover {
+        padding-bottom: 12px;
+    }
+}
