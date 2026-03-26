@@ -219,7 +219,7 @@ main {
 
 .scroll-indicator {
     position: absolute;
-    bottom: 3rem;
+    bottom: 5rem;
     font-size: 2rem;
     color: var(--text-main);
     opacity: 0.5;
