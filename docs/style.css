@@ -142,10 +142,17 @@ a.nav-brand {
 
 .footer-content {
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
-    max-width: 1200px;
+}
+
+.footer-content p:first-child {
+    font-size: 1rem;
+}
+
+.footer-content p {
+    margin-top: 5px;
 }
 
 .footer-badges {
