@@ -326,6 +326,12 @@ main {
     display: inline-block;
 }
 
+.release h3 p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
 .feature-icon {
     width: 64px;
     height: 64px;

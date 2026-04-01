@@ -58,8 +58,12 @@ async function fetchReleases() {
       });
     }
 
+    const date = document.createElement("p");
+    const releaseDate = new Date(release.published_at);
+    date.textContent = `${releaseDate.toLocaleDateString()}`;
+    title.appendChild(date);
+
     div.appendChild(title);
-    div.appendChild(document.createElement("br"))
     div.appendChild(assetsDiv);
 
     if (release.reactions && release.reactions.total_count > 0) {
