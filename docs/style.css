@@ -512,3 +512,24 @@ main {
         padding-bottom: 12px;
     }
 }
+
+@media (max-width: 480px) {
+    .nav-link.highlight .nav-text {
+        display: none;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .nav-title {
+        display: none;
+    }
+}
+
+@media (max-width: 260px) {
+    .nav-links {
+        gap: 0.5rem;
+    }
+}
