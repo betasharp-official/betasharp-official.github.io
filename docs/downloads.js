@@ -2,7 +2,7 @@ const owner = "betasharp-official";
 const repo = "betasharp";
 
 async function fetchReleases() {
-  const url = `https://api.github.com/repos/${owner}/${repo}/releases`;
+  const url = `https://git.gay/api/v1/repos/${owner}/${repo}/releases`;
   const response = await fetch(url, {
     headers: {
       // This enables rendered HTML (body_html)
