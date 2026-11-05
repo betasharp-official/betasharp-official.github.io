@@ -1,19 +1,101 @@
-const owner = "betasharp-official";
-const repo = "betasharp";
+// Release sources. The key is used in the URL (?source=<key>) so links can be shared.
+const SOURCES = {
+  official: { label: "Official", owner: "betasharp-official" },
+  millenniumambiguity: { label: "Other", owner: "millennIumAMbiguity"},
+};
+const REPO = "betasharp";
+const DEFAULT_SOURCE = "official";
 
-async function fetchReleases() {
-  const url = `https://git.gay/api/v1/repos/${owner}/${repo}/releases`;
-  const response = await fetch(url, {
-    headers: {
-      // This enables rendered HTML (body_html)
-      Accept: "application/vnd.github+json",
-    },
+
+// One cache entry per source, filled on first use only.
+// Stores the promise so switching back mid-fetch doesn't fetch twice.
+const releaseCache = {};
+
+let currentSource = null;
+
+function getSourceFromUrl() {
+  const key = new URLSearchParams(window.location.search).get("source");
+  return key && SOURCES[key.toLowerCase()] ? key.toLowerCase() : DEFAULT_SOURCE;
+}
+
+function getReleases(sourceKey) {
+  if (!releaseCache[sourceKey]) {
+    const { owner } = SOURCES[sourceKey];
+    const url = `https://git.gay/api/v1/repos/${owner}/${REPO}/releases`;
+    releaseCache[sourceKey] = fetch(url, {
+      headers: {
+        // This enables rendered HTML (body_html)
+        Accept: "application/vnd.github+json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .catch((error) => {
+        delete releaseCache[sourceKey]; // allow retry next time
+        throw error;
+      });
+  }
+  return releaseCache[sourceKey];
+}
+
+function buildSourceSwitch() {
+  const switcher = document.getElementById("source-switch");
+  Object.entries(SOURCES).forEach(([key, source]) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.source = key;
+    button.textContent = source.label;
+    button.setAttribute("role", "tab");
+    button.onclick = () => selectSource(key, true);
+    switcher.appendChild(button);
+  });
+}
+
+async function selectSource(sourceKey, updateUrl) {
+  if (sourceKey === currentSource) return;
+  currentSource = sourceKey;
+
+  document.querySelectorAll("#source-switch button").forEach((button) => {
+    const active = button.dataset.source === sourceKey;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", active);
   });
 
-  const releases = await response.json();
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    if (sourceKey === DEFAULT_SOURCE) url.searchParams.delete("source");
+    else url.searchParams.set("source", sourceKey);
+    history.pushState({ source: sourceKey }, "", url);
+  }
 
   const container = document.getElementById("releases");
+  container.replaceChildren(statusMessage("Loading releases…"));
 
+  try {
+    const releases = await getReleases(sourceKey);
+    if (currentSource !== sourceKey) return; // user switched while loading
+    container.replaceChildren();
+    if (releases.length === 0) {
+      container.appendChild(statusMessage("No releases found."));
+    } else {
+      renderReleases(releases, container);
+    }
+  } catch (error) {
+    if (currentSource !== sourceKey) return;
+    container.replaceChildren(statusMessage(`Failed to load releases (${error.message}).`));
+  }
+}
+
+function statusMessage(text) {
+  const p = document.createElement("p");
+  p.className = "releases-status";
+  p.textContent = text;
+  return p;
+}
+
+function renderReleases(releases, container) {
   releases.forEach((release) => {
     const div = document.createElement("a");
     div.className = "release";
@@ -99,4 +181,7 @@ async function fetchReleases() {
   });
 }
 
-fetchReleases();
+window.addEventListener("popstate", () => selectSource(getSourceFromUrl(), false));
+
+buildSourceSwitch();
+selectSource(getSourceFromUrl(), false);
