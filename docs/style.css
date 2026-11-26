@@ -25,6 +25,9 @@ body {
     font-size: 14px;
     line-height: 1.4;
     color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 img {
@@ -113,6 +116,7 @@ a:hover {
     gap: 30px;
     padding-top: 26px;
     padding-bottom: 30px;
+    flex: 1;
 }
 
 .content {
@@ -433,6 +437,7 @@ hr {
     font-size: 12px;
     color: #888;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .footer p {
